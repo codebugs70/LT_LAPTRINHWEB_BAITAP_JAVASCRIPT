@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .head {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    header,
+    .row,
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #ccc;
+    }
+    .row:last-child {
+      border-bottom: none;
+    }
+    .row > div {
+      flex: 1;
+      padding: 8px;
+    }
+    .row > div:first-child {
+      flex: 2;
+    }
+    .row > div:nth-child(2),
+    .row > div:nth-child(3) {
+      flex: 1;
+    }
+    .row > div.tien {
+      flex: 2;
+      font-weight: bold;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+
+  <body>
+    <div class="container">
+      <div class="head">
+        TIỀN VÉ DU LỊCH HẠ LONG <span id="clock" class="clock"></span>
+      </div>
+      <header class="row">
+        <div>Gia đình</div>
+        <div>Số người lớn</div>
+        <div>Số trẻ em</div>
+        <div>Tiền</div>
+      </header>
+      <div class="row">
+        <div>Đào kho Báu</div>
+        <div class="nl" contenteditable="true" onkeyup="tien(this)">11</div>
+        <div class="te" contenteditable="true" onkeyup="tien(this)">3</div>
+        <div class="tien">SoTien</div>
+      </div>
+      <div class="row">
+        <div>Đỗ đạt Cao</div>
+        <div class="nl" contenteditable="true" onkeyup="tien(this)">22</div>
+        <div class="te" contenteditable="true" onkeyup="tien(this)">2</div>
+        <div class="tien">SoTien</div>
+      </div>
+      <div class="row">
+        <div>Mai anh Tới</div>
+        <div class="nl" contenteditable="true" onkeyup="tien(this)">33</div>
+        <div class="te" contenteditable="true" onkeyup="tien(this)">4</div>
+        <div class="tien">SoTien</div>
+      </div>
+      <div class="row">
+        <div>Phạm kỷ Luật</div>
+        <div class="nl" contenteditable="true" onkeyup="tien(this)">44</div>
+        <div class="te" contenteditable="true" onkeyup="tien(this)">6</div>
+        <div class="tien">SoTien</div>
+      </div>
+      <div class="row">
+        <div>Mai anh Bảo</div>
+        <div class="nl" contenteditable="true" onkeyup="tien(this)">55</div>
+        <div class="te" contenteditable="true" onkeyup="tien(this)">7</div>
+        <div class="tien">SoTien</div>
+      </div>
+      <footer class="row">
+        <div>Tổng</div>
+        <div id="tongnl"></div>
+        <div id="tongte"></div>
+        <div id="tongtien"></div>
+      </footer>
+      <div class="row">
+        <button onclick="tinhtien()">Tính</button>
+        <button onclick="anhien()">Ẩn Hiện</button>
+      </div>
+    </div>
+
+    <script>
+      function tinhtien() {
+        var nguoilon_arr = document.getElementsByClassName("nl");
+        var treem_arr = document.getElementsByClassName("te");
+        var sotien_arr = document.getElementsByClassName("tien");
+        var tongnguoilon = 0,
+          tongtreem = 0,
+          tongtien = 0;
+
+        for (var i = 0; i < nguoilon_arr.length; i++) {
+          var songuoilon = parseInt(nguoilon_arr[i].innerText);
+          var sotreem = parseInt(treem_arr[i].innerText);
+          tongnguoilon += songuoilon;
+          tongtreem += sotreem;
+          var t = songuoilon * 1000000 + sotreem * 600000;
+          tongtien += t;
+          sotien_arr[i].innerText = formatCurrency(t);
+        }
+
+        document.getElementById("tongnl").innerText = tongnguoilon;
+        document.getElementById("tongte").innerText = tongtreem;
+        document.getElementById("tongtien").innerText =
+          formatCurrency(tongtien);
+      }
+
+      function formatCurrency(amount) {
+        var nf = new Intl.NumberFormat();
+        return nf.format(amount);
+      }
+
+      function tien(obj) {
+        var row = obj.parentNode;
+        var sonl = parseInt(row.children[1].innerText);
+        var sote = parseInt(row.children[2].innerText);
+        var t = sonl * 1000000 + sote * 600000;
+        row.children[3].innerText = t;
+
+        tinhtien();
+      }
+
+      function anhien() {
+        var row_arr = document.getElementsByClassName("row");
+        for (var i = 1; i < row_arr.length - 1; i++) {
+          if (row_arr[i].style.display == "none") row_arr[i].style.display = "";
+          else row_arr[i].style.display = "none";
+        }
+      }
+
+      function updateClock() {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+        var timeString =
+          hours.toString().padStart(2, "0") +
+          ":" +
+          minutes.toString().padStart(2, "0") +
+          ":" +
+          seconds.toString().padStart(2, "0");
+        document.getElementById("clock").textContent = timeString;
+      }
+
+      // Update clock every second
+      setInterval(updateClock, 1000);
+    </script>
+  </body>
+</html>

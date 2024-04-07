@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gọi hàm trong sự kiện HTML</title>
+    <style>
+      #hinh {
+        width: 200px;
+        height: 200px;
+        border: 2px solid black;
+        margin: 20px;
+        transition: transform 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Di chuột vào hoặc ra khỏi hình</h2>
+    <img
+      id="hinh"
+      src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      onmouseover="chuyenHinh('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"
+      onmouseout="chuyenHinh('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"
+      onmousemove="xoayHinh(event)"
+    />
+
+    <script>
+      function chuyenHinh(src) {
+        document.getElementById("hinh").src = src;
+      }
+
+      function xoayHinh(event) {
+        var hinh = document.getElementById("hinh");
+        var rect = hinh.getBoundingClientRect();
+        var x = event.clientX - rect.left; // Tọa độ x trong hình
+        var y = event.clientY - rect.top; // Tọa độ y trong hình
+        var centerX = rect.width / 2; // Tọa độ x của trung tâm hình
+        var centerY = rect.height / 2; // Tọa độ y của trung tâm hình
+        var degX = ((y - centerY) / centerY) * -10; // Góc xoay dọc
+        var degY = ((x - centerX) / centerX) * 10; // Góc xoay ngang
+        hinh.style.transform =
+          "perspective(600px) rotateX(" +
+          degX +
+          "deg) rotateY(" +
+          degY +
+          "deg)";
+      }
+    </script>
+  </body>
+</html>

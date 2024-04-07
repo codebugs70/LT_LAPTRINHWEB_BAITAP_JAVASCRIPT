@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đặt hàng</title>
+  </head>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    form {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    div {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: calc(100% - 10px);
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    #shippingFeeContainer {
+      display: none;
+    }
+
+    button[type="submit"] {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  </style>
+
+  <body>
+    <h1>Form Đặt Hàng</h1>
+    <form id="orderForm">
+      <div>
+        <label for="product">Sản phẩm:</label>
+        <input type="text" id="product" name="product" />
+      </div>
+      <div>
+        <label for="productType">Loại sản phẩm:</label>
+        <select id="productType" name="productType">
+          <option value="">Chọn loại sản phẩm</option>
+          <option value="type1">Loại 1</option>
+          <option value="type2">Loại 2</option>
+          <option value="type3">Loại 3</option>
+        </select>
+      </div>
+      <div>
+        <label for="price">Đơn giá:</label>
+        <input type="number" id="price" name="price" />
+      </div>
+      <div>
+        <label for="delivery">Nơi nhận hàng:</label>
+        <input type="checkbox" id="local" name="delivery" value="local" /> Nội
+        thành
+        <input type="checkbox" id="nonLocal" name="delivery" value="nonLocal" />
+        Ngoại thành
+      </div>
+      <div id="shippingFeeContainer" style="display: none">
+        <label for="shippingFee">Phí vận chuyển:</label>
+        <input type="text" id="shippingFee" value="100000" readonly />
+      </div>
+      <button type="submit">Đặt mua</button>
+    </form>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("orderForm");
+        const productInput = document.getElementById("product");
+        const productTypeSelect = document.getElementById("productType");
+        const priceInput = document.getElementById("price");
+        const localCheckbox = document.getElementById("local");
+        const nonLocalCheckbox = document.getElementById("nonLocal");
+        const shippingFeeContainer = document.getElementById(
+          "shippingFeeContainer"
+        );
+        const shippingFeeInput = document.getElementById("shippingFee");
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          if (validateForm()) {
+            alert("Đặt hàng thành công!");
+            form.reset();
+          }
+        });
+
+        function validateForm() {
+          let isValid = true;
+
+          if (productInput.value.trim() === "") {
+            alert("Sản phẩm không được để trống");
+            isValid = false;
+          }
+
+          if (productTypeSelect.value === "") {
+            alert("Loại sản phẩm phải được chọn");
+            isValid = false;
+          }
+
+          if (
+            priceInput.value.trim() === "" ||
+            isNaN(priceInput.value) ||
+            parseFloat(priceInput.value) <= 0
+          ) {
+            alert("Đơn giá không hợp lệ");
+            isValid = false;
+          }
+
+          if (!localCheckbox.checked && !nonLocalCheckbox.checked) {
+            alert("Vui lòng chọn nơi nhận hàng");
+            isValid = false;
+          }
+
+          return isValid;
+        }
+
+        localCheckbox.addEventListener("change", function () {
+          if (this.checked) {
+            nonLocalCheckbox.checked = false;
+            shippingFeeContainer.style.display = "none";
+          }
+        });
+
+        nonLocalCheckbox.addEventListener("change", function () {
+          if (this.checked) {
+            localCheckbox.checked = false;
+            shippingFeeContainer.style.display = "block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đồng hồ</title>
+  </head>
+  <body>
+    <h1>Đồng hồ</h1>
+    <div id="clock"></div>
+
+    <script>
+      // Hàm hiển thị thời gian hiện tại và cập nhật lại mỗi giây
+      function hienThiDongHo() {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+
+        // Định dạng giờ, phút, giây để có hai chữ số (01, 02, ..., 09)
+        hours = padZero(hours);
+        minutes = padZero(minutes);
+        seconds = padZero(seconds);
+
+        // Hiển thị thời gian trong định dạng HH:MM:SS
+        var timeString = hours + ":" + minutes + ":" + seconds;
+        document.getElementById("clock").innerHTML = timeString;
+      }
+
+      // Hàm thêm số 0 vào trước số nếu số đó chỉ có một chữ số
+      function padZero(number) {
+        if (number < 10) {
+          return "0" + number;
+        }
+        return number;
+      }
+
+      // Gọi hàm hienThiDongHo() lần đầu khi trang web được tải
+      hienThiDongHo();
+
+      // Cập nhật thời gian mỗi giây
+      setInterval(hienThiDongHo, 1000);
+    </script>
+  </body>
+</html>

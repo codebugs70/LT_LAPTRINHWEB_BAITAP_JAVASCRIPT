@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tìm kiếm và lọc sản phẩm</title>
+  </head>
+
+  <style>
+    /* styles.css */
+
+    /* Thiết lập font và margin */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Định dạng phần header */
+    #app {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    /* Định dạng input và button */
+    input[type="text"],
+    input[type="number"],
+    select {
+      margin-bottom: 10px;
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 8px 15px;
+      cursor: pointer;
+    }
+
+    /* Định dạng danh mục và bộ lọc giá */
+    #categoryFilter,
+    #priceFilter,
+    #sortDropdown {
+      margin-bottom: 20px;
+    }
+
+    /* Định dạng danh mục */
+    .categoryFilter {
+      display: none;
+    }
+
+    /* Định dạng danh sách sản phẩm */
+    #productList {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    #productList li {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    /* Định dạng kết quả tìm kiếm */
+    #resultCount {
+      margin-bottom: 10px;
+      font-style: italic;
+    }
+  </style>
+
+  <body>
+    <div id="app">
+      <h1>Tìm kiếm và lọc sản phẩm</h1>
+      <div>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Nhập từ khóa tìm kiếm..."
+        />
+        <button id="clearBtn">Xóa</button>
+      </div>
+
+      <!-- Danh sách danh mục -->
+      <div id="categoryFilter">
+        <h2>Danh mục</h2>
+        <input
+          type="checkbox"
+          id="category1"
+          class="categoryFilter"
+          value="category1"
+        />
+        <label for="category1">Danh mục 1</label>
+        <input
+          type="checkbox"
+          id="category2"
+          class="categoryFilter"
+          value="category2"
+        />
+        <label for="category2">Danh mục 2</label>
+        <!-- Thêm các checkbox cho các danh mục khác nếu cần -->
+      </div>
+
+      <!-- Bộ lọc giá -->
+      <div id="priceFilter">
+        <h2>Lọc theo giá</h2>
+        <input type="text" id="minPrice" placeholder="Giá tối thiểu" />
+        <input type="text" id="maxPrice" placeholder="Giá tối đa" />
+        <!-- Hoặc thêm dropdown cho phạm vi giá nếu muốn -->
+      </div>
+
+      <!-- Dropdown sắp xếp -->
+      <div id="sortDropdown">
+        <h2>Sắp xếp sản phẩm</h2>
+        <select id="sortOptions">
+          <option value="priceAsc">Giá: Tăng dần</option>
+          <option value="priceDesc">Giá: Giảm dần</option>
+          <option value="nameAsc">Tên: A-Z</option>
+          <option value="nameDesc">Tên: Z-A</option>
+          <!-- Thêm các tiêu chí sắp xếp khác nếu cần -->
+        </select>
+      </div>
+
+      <!-- Hiển thị kết quả lọc -->
+      <div id="resultCount"></div>
+
+      <!-- Danh sách sản phẩm -->
+      <ul id="productList">
+        <li data-name="Product 1" data-category="category1" data-price="100">
+          Product 1 - Category 1
+        </li>
+        <li data-name="Product 2" data-category="category2" data-price="200">
+          Product 2 - Category 2
+        </li>
+        <li
+          data-name="Product 3"
+          data-category="category1 category2"
+          data-price="150"
+        >
+          Product 3 - Category 1, Category 2
+        </li>
+        <!-- Thêm các sản phẩm khác nếu cần -->
+      </ul>
+    </div>
+
+    <script>
+      // script.js
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const clearBtn = document.getElementById("clearBtn");
+        const categoryFilters = document.querySelectorAll(".categoryFilter");
+        const minPriceInput = document.getElementById("minPrice");
+        const maxPriceInput = document.getElementById("maxPrice");
+        const sortOptions = document.getElementById("sortOptions");
+        const productList = document.getElementById("productList");
+        const items = productList.getElementsByTagName("li");
+        const resultCount = document.getElementById("resultCount");
+
+        // Function to update result count
+        function updateResultCount(count) {
+          resultCount.textContent = `Kết quả tìm kiếm: ${count} sản phẩm`;
+        }
+
+        // Function to filter products based on search input, category filters, price range, and sort option
+        function filterProducts() {
+          const searchTerm = searchInput.value.toLowerCase();
+          const minPrice = parseFloat(minPriceInput.value);
+          const maxPrice = parseFloat(maxPriceInput.value);
+          const selectedCategories = Array.from(categoryFilters)
+            .filter((input) => input.checked)
+            .map((input) => input.value);
+
+          let visibleCount = 0;
+
+          for (let i = 0; i < items.length; i++) {
+            const itemName = items[i].dataset.name.toLowerCase();
+            const itemCategory = items[i].dataset.category.split(" ");
+            const itemPrice = parseFloat(items[i].dataset.price);
+
+            const matchesSearch = itemName.includes(searchTerm);
+            const matchesCategory =
+              selectedCategories.length === 0 ||
+              selectedCategories.some((category) =>
+                itemCategory.includes(category)
+              );
+            const isInRange =
+              isNaN(minPrice) ||
+              isNaN(maxPrice) ||
+              (itemPrice >= minPrice && itemPrice <= maxPrice);
+
+            if (matchesSearch && matchesCategory && isInRange) {
+              items[i].style.display = "block";
+              visibleCount++;
+            } else {
+              items[i].style.display = "none";
+            }
+          }
+
+          updateResultCount(visibleCount);
+        }
+
+        // Event listeners
+        searchInput.addEventListener("input", filterProducts);
+        clearBtn.addEventListener("click", function () {
+          searchInput.value = "";
+          minPriceInput.value = "";
+          maxPriceInput.value = "";
+          categoryFilters.forEach((input) => (input.checked = false));
+          filterProducts();
+        });
+
+        categoryFilters.forEach((input) =>
+          input.addEventListener("change", filterProducts)
+        );
+        minPriceInput.addEventListener("input", filterProducts);
+        maxPriceInput.addEventListener("input", filterProducts);
+        sortOptions.addEventListener("change", function () {
+          const sortOption = sortOptions.value;
+          const sortedItems = Array.from(items).sort((a, b) => {
+            if (sortOption === "priceAsc") {
+              return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+            } else if (sortOption === "priceDesc") {
+              return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+            } else if (sortOption === "nameAsc") {
+              return a.dataset.name.localeCompare(b.dataset.name);
+            } else if (sortOption === "nameDesc") {
+              return b.dataset.name.localeCompare(a.dataset.name);
+            }
+          });
+
+          sortedItems.forEach((item) => productList.appendChild(item));
+        });
+
+        // Initial filter when page loads
+        filterProducts();
+      });
+    </script>
+  </body>
+</html>

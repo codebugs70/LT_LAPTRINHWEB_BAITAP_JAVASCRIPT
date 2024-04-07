@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bài 4: Ứng dụng vòng lặp vào selectbox</title>
+  </head>
+  <body>
+    <h2>Ngày:</h2>
+    <select id="ngay"></select>
+
+    <h2>Tháng:</h2>
+    <select id="thang"></select>
+
+    <h2>Năm:</h2>
+    <select id="nam"></select>
+
+    <script>
+      // Hàm tạo option cho select box
+      function taoOption(select, start, end, selectedValue = null) {
+        for (var i = start; i <= end; i++) {
+          var option = document.createElement("option");
+          option.value = i;
+          option.text = i;
+          if (selectedValue != null && i == selectedValue) {
+            option.selected = true;
+          }
+          select.appendChild(option);
+        }
+      }
+
+      // Thiết lập giá trị mặc định cho ngày, tháng, năm
+      var ngaySelect = document.getElementById("ngay");
+      var thangSelect = document.getElementById("thang");
+      var namSelect = document.getElementById("nam");
+
+      // Thiết lập ngày mặc định là 1
+      taoOption(ngaySelect, 1, 31, 1);
+
+      // Thiết lập tháng mặc định là 1
+      taoOption(thangSelect, 1, 12, 1);
+
+      // Thiết lập năm mặc định là năm hiện tại
+      var namHienTai = new Date().getFullYear();
+      taoOption(namSelect, 1970, namHienTai, namHienTai);
+    </script>
+  </body>
+</html>

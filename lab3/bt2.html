@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multiplication Table</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <style>
+    #multiplication-tables {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      justify-content: center;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .multiplication-table th,
+    .multiplication-table td {
+      border: 1px solid black;
+      padding: 10px;
+    }
+
+    .multiplication-table th {
+      background-color: cadetblue;
+    }
+  </style>
+
+  <body>
+    <div id="multiplication-tables"></div>
+
+    <script>
+      const tableContainer = document.getElementById("multiplication-tables");
+
+      function createMultiplicationTable(num) {
+        let tableHTML = `<table class="multiplication-table"><tr><th colspan="3">Bảng cửu chương ${num}</th></tr>`;
+
+        for (let i = 1; i <= 10; i++) {
+          tableHTML += `<tr><td>${num} x ${i}</td><td>=</td><td>${
+            num * i
+          }</td></tr>`;
+        }
+
+        tableHTML += "</table>";
+        return tableHTML;
+      }
+
+      function generateMultiplicationTables() {
+        let allTablesHTML = "";
+        for (let i = 2; i <= 9; i++) {
+          allTablesHTML += createMultiplicationTable(i);
+        }
+        tableContainer.innerHTML = allTablesHTML;
+      }
+
+      generateMultiplicationTables();
+    </script>
+  </body>
+</html>

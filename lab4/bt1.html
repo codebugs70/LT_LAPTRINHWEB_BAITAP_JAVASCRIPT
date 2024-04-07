@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="listsach">
+      <script>
+        for (var i = 0; i < arr.length; i++) {
+          document.write(`
+              <div class="rows">
+                <span>${i + 1}</span>
+                <span>${arr[i].tensp}</span>
+                <span>${arr[i].gia}</span>
+              </div>
+            `);
+        }
+      </script>
+    </div>
+
+    <script>
+      var sp1 = { tensp: "Nói với tuổi 20", gia: 35000, hinh: "sp1.jpg" };
+      var sp2 = { tensp: "Mùi hương trầm", gia: 120000, hinh: "sp2.jpg" };
+      var sp3 = { tensp: "Bích câu kỳ ngộ", gia: 309999, hinh: "sp2.jpg" };
+      var arr = [sp1, sp2, sp3];
+    </script>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chỉ số BMI</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+      }
+
+      .container {
+        width: 300px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      input {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      button {
+        width: calc(100% - 20px);
+        padding: 10px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      #result {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Chỉ số BMI</h2>
+      <input type="number" id="height" placeholder="Chiều cao (cm)" />
+      <input type="number" id="weight" placeholder="Cân nặng (kg)" />
+      <button onclick="calculateBMI()">Tính toán</button>
+      <div id="result"></div>
+    </div>
+
+    <script>
+      function calculateBMI() {
+        const height = parseFloat(document.getElementById("height").value);
+        const weight = parseFloat(document.getElementById("weight").value);
+
+        if (!height && !weight) return;
+
+        let bmi = weight / (height / 100) ** 2;
+        let conclusion;
+
+        if (bmi < 18.5) {
+          conclusion = "Gầy";
+        } else if (bmi >= 18.5 && bmi < 25) {
+          conclusion = "Bình thường";
+        } else if (bmi >= 25 && bmi < 30) {
+          conclusion = "Thừa cân";
+        } else {
+          conclusion = "Béo phì";
+        }
+
+        const result = document.getElementById("result");
+        result.innerHTML =
+          "Chỉ số BMI: " + bmi.toFixed(2) + "<br>" + "Kết luận: " + conclusion;
+      }
+    </script>
+  </body>
+</html>

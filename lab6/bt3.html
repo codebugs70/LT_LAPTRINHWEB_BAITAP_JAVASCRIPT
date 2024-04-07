@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thông tin cá nhân</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+
+    button[type="submit"] {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+
+  <body>
+    <div class="container">
+      <h1>Form Thêm Nhân Viên</h1>
+      <form id="personalInfoForm">
+        <div class="form-group">
+          <label for="fullName">Họ và tên:</label>
+          <input type="text" id="fullName" name="fullName" />
+          <span class="error" id="fullNameError"></span>
+        </div>
+        <div class="form-group">
+          <label for="idNumber">Số CMND:</label>
+          <input type="text" id="idNumber" name="idNumber" />
+          <span class="error" id="idNumberError"></span>
+        </div>
+        <div class="form-group">
+          <label for="province">Tỉnh:</label>
+          <select id="province" name="province">
+            <option value="0">Chọn tỉnh/thành phố</option>
+            <option value="1">Tỉnh A</option>
+            <option value="2">Tỉnh B</option>
+            <option value="3">Tỉnh C</option>
+          </select>
+          <span class="error" id="provinceError"></span>
+        </div>
+        <div class="form-group">
+          <label for="additionalInfo">Thông tin bổ sung:</label>
+          <textarea id="additionalInfo" name="additionalInfo"></textarea>
+          <span class="error" id="additionalInfoError"></span>
+        </div>
+        <button type="submit">Lưu thông tin</button>
+      </form>
+    </div>
+    <script>
+      document
+        .getElementById("personalInfoForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          validateForm();
+        });
+
+      function validateForm() {
+        const fullName = document.getElementById("fullName").value.trim();
+        const idNumber = document.getElementById("idNumber").value.trim();
+        const province = document.getElementById("province").value;
+        const additionalInfo = document
+          .getElementById("additionalInfo")
+          .value.trim();
+
+        const fullNameError = document.getElementById("fullNameError");
+        const idNumberError = document.getElementById("idNumberError");
+        const provinceError = document.getElementById("provinceError");
+        const additionalInfoError = document.getElementById(
+          "additionalInfoError"
+        );
+
+        fullNameError.textContent = "";
+        idNumberError.textContent = "";
+        provinceError.textContent = "";
+        additionalInfoError.textContent = "";
+
+        let isValid = true;
+
+        if (fullName === "" || fullName.length < 3 || fullName.length > 30) {
+          fullNameError.textContent = "Họ tên phải từ 3 đến 30 ký tự";
+          isValid = false;
+        }
+
+        if (idNumber === "" || idNumber.length !== 9) {
+          idNumberError.textContent = "Số CMND phải đúng 9 ký tự";
+          isValid = false;
+        }
+
+        if (province === "0") {
+          provinceError.textContent = "Vui lòng chọn tỉnh/thành phố";
+          isValid = false;
+        }
+
+        if (
+          additionalInfo === "" ||
+          additionalInfo.length < 50 ||
+          additionalInfo.length > 1000
+        ) {
+          additionalInfoError.textContent =
+            "Thông tin bổ sung phải từ 50 đến 1000 ký tự";
+          isValid = false;
+        }
+
+        if (!isValid) {
+          // Thực hiện ẩn thông báo lỗi sau 10 giây
+          setTimeout(function () {
+            fullNameError.textContent = "";
+            idNumberError.textContent = "";
+            provinceError.textContent = "";
+            additionalInfoError.textContent = "";
+          }, 2000);
+        }
+
+        if (isValid) {
+          // Xử lý khi form hợp lệ (ví dụ: gửi dữ liệu đến máy chủ)
+          alert("Thông tin đã được lưu thành công!");
+          document.getElementById("personalInfoForm").reset();
+        }
+      }
+    </script>
+  </body>
+</html>

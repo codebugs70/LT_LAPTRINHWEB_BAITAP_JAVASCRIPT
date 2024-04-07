@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đếm số bằng DOM</title>
+  </head>
+  <body>
+    <h1 id="counter">0</h1>
+    <button id="increaseBtn">Tăng</button>
+    <button id="decreaseBtn">Giảm</button>
+
+    <script>
+      // Truy cập các phần tử HTML và lưu vào các biến
+      var counterElement = document.getElementById("counter");
+      var increaseBtn = document.getElementById("increaseBtn");
+      var decreaseBtn = document.getElementById("decreaseBtn");
+
+      // Tạo biến lưu trữ giá trị đếm ban đầu
+      var count = 0;
+
+      // Gắn sự kiện click cho nút tăng
+      increaseBtn.addEventListener("click", function () {
+        count++; // Tăng giá trị đếm
+        counterElement.textContent = count; // Cập nhật nội dung của thẻ h1
+      });
+
+      // Gắn sự kiện click cho nút giảm
+      decreaseBtn.addEventListener("click", function () {
+        count--; // Giảm giá trị đếm
+        counterElement.textContent = count; // Cập nhật nội dung của thẻ h1
+      });
+    </script>
+  </body>
+</html>

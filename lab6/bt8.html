@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countdown Timer</title>
+  </head>
+  <style>
+    .countdown-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    h1 {
+      font-size: 28px; /* Tăng kích thước font chữ */
+      color: #333; /* Màu chữ */
+      margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+    }
+
+    label {
+      margin-right: 10px;
+      font-weight: bold; /* Đậm chữ */
+    }
+
+    input {
+      padding: 8px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc; /* Viền */
+      border-radius: 4px; /* Bo tròn viền */
+    }
+
+    .countdown-timer {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      font-family: Arial, sans-serif; /* Font chữ */
+    }
+
+    .countdown-timer div {
+      margin-right: 20px;
+    }
+
+    .countdown-timer span {
+      font-size: 28px; /* Kích thước font chữ */
+      color: #333; /* Màu chữ */
+    }
+
+    #days,
+    #hours,
+    #minutes,
+    #seconds {
+      font-size: 28px; /* Kích thước font chữ */
+      color: #333; /* Màu chữ */
+    }
+  </style>
+  <body>
+    <div class="countdown-container">
+      <h1>Countdown Timer</h1>
+      <div>
+        <label for="startDate">Ngày bắt đầu:</label>
+        <input type="date" id="startDate" />
+      </div>
+      <div>
+        <label for="endDate">Ngày kết thúc:</label>
+        <input type="date" id="endDate" />
+      </div>
+      <div class="countdown-timer">
+        <div><span id="days">00</span> Ngày</div>
+        <div><span id="hours">00</span> Giờ</div>
+        <div><span id="minutes">00</span> Phút</div>
+        <div><span id="seconds">00</span> Giây</div>
+      </div>
+    </div>
+
+    <script>
+      const startDateInput = document.getElementById("startDate");
+      const endDateInput = document.getElementById("endDate");
+      const daysElement = document.getElementById("days");
+      const hoursElement = document.getElementById("hours");
+      const minutesElement = document.getElementById("minutes");
+      const secondsElement = document.getElementById("seconds");
+
+      let countdownInterval;
+
+      function countdown() {
+        const startDateValue = startDateInput.value;
+        const endDateValue = endDateInput.value;
+
+        // Kiểm tra nếu ngày bắt đầu và ngày kết thúc đã được chọn
+        if (startDateValue && endDateValue) {
+          clearInterval(countdownInterval); // Dừng countdown trước đó nếu có
+          const startDate = new Date(startDateValue);
+          const endDate = new Date(endDateValue);
+
+          // Tính số giây còn lại mỗi lần countdown
+          function updateCountdown() {
+            const now = new Date();
+            const totalSeconds = Math.ceil((endDate - now) / 1000);
+
+            if (totalSeconds <= 0) {
+              clearInterval(countdownInterval);
+              daysElement.textContent = "00";
+              hoursElement.textContent = "00";
+              minutesElement.textContent = "00";
+              secondsElement.textContent = "00";
+              return;
+            }
+
+            const days = Math.floor(totalSeconds / 3600 / 24);
+            const hours = Math.floor(totalSeconds / 3600) % 24;
+            const minutes = Math.floor(totalSeconds / 60) % 60;
+            const seconds = totalSeconds % 60;
+
+            daysElement.textContent = days < 10 ? "0" + days : days;
+            hoursElement.textContent = hours < 10 ? "0" + hours : hours;
+            minutesElement.textContent = minutes < 10 ? "0" + minutes : minutes;
+            secondsElement.textContent = seconds < 10 ? "0" + seconds : seconds;
+          }
+
+          // Gọi updateCountdown() một lần để hiển thị ngay khi đã chọn ngày
+          updateCountdown();
+
+          // Sau đó, sử dụng setInterval để cập nhật countdown mỗi giây
+          countdownInterval = setInterval(updateCountdown, 1000);
+        }
+      }
+
+      startDateInput.addEventListener("change", countdown);
+      endDateInput.addEventListener("change", countdown);
+    </script>
+  </body>
+</html>

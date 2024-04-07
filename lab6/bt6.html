@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Player</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <style>
+    body {
+      display: grid;
+      justify-content: center;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #20e3b2;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <video id="myVideo" width="640" height="360" controls>
+      <source src="./images/video1.mp4" type="video/mp4" />
+    </video>
+
+    <div class="controls">
+      <button id="playPauseBtn">Play</button>
+      <button id="volUpBtn">Vol+</button>
+      <button id="volDownBtn">Vol-</button>
+      <button id="muteBtn">Mute</button>
+    </div>
+
+    <script>
+      const video = document.getElementById("myVideo");
+      const playPauseBtn = document.getElementById("playPauseBtn");
+      const volUpBtn = document.getElementById("volUpBtn");
+      const volDownBtn = document.getElementById("volDownBtn");
+      const muteBtn = document.getElementById("muteBtn");
+
+      playPauseBtn.addEventListener("click", function () {
+        if (video.paused) {
+          video.play();
+          playPauseBtn.textContent = "Pause";
+        } else {
+          video.pause();
+          playPauseBtn.textContent = "Play";
+        }
+      });
+
+      volUpBtn.addEventListener("click", function () {
+        if (video.volume < 1) {
+          video.volume += 0.1;
+        }
+      });
+
+      volDownBtn.addEventListener("click", function () {
+        if (video.volume > 0) {
+          video.volume -= 0.1;
+        }
+      });
+
+      muteBtn.addEventListener("click", function () {
+        if (video.muted) {
+          video.muted = false;
+          muteBtn.textContent = "Mute";
+        } else {
+          video.muted = true;
+          muteBtn.textContent = "Unmute";
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    body {
+      display: grid;
+      place-content: center;
+    }
+  </style>
+
+  <body>
+    <div class="box">
+      <h1>Thông tin cá nhân</h1>
+      <div style="display: flex; flex-direction: column; gap: 5px">
+        <span>Họ tên: <strong id="hoten"></strong></span>
+        <span>MSSV: <strong id="mssv"></strong></span>
+        <span>Ngày sinh: <strong id="ngaysinh"></strong></span>
+      </div>
+    </div>
+
+    <script>
+      const studentInfo = {
+        hoten: "Nguyễn Văn Tèo",
+        mssv: "PSH1793491",
+        ngaysinh: "12/3/2000",
+      };
+
+      const hoten = document.getElementById("hoten");
+      const mssv = document.getElementById("mssv");
+      const ngaysinh = document.getElementById("ngaysinh");
+
+      hoten.innerHTML = studentInfo.hoten;
+      mssv.innerHTML = studentInfo.mssv;
+      ngaysinh.innerHTML = studentInfo.ngaysinh;
+    </script>
+  </body>
+</html>

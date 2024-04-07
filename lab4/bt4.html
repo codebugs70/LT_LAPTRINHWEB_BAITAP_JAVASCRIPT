@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Điều khiển window</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      button {
+        margin: 10px;
+        padding: 8px 16px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Điều khiển window</h1>
+    <button onclick="moWin()">Mở Win</button>
+    <button onclick="dongWin()">Đóng Win</button>
+    <button onclick="diChuyenMotChut()">Di chuyển 1 chút</button>
+    <button onclick="diChuyenToiDiem()">Di chuyển tới điểm</button>
+    <button onclick="inAn()">In Ấn</button>
+
+    <script>
+      var w;
+
+      function moWin() {
+        w = window.open(
+          "thongtin.html",
+          "tt",
+          "width=400, height=200, top=50, left=600"
+        );
+        w.focus();
+      }
+
+      function dongWin() {
+        if (w) {
+          w.close();
+        }
+      }
+
+      function diChuyenMotChut() {
+        if (w) {
+          w.moveBy(5, 10);
+        }
+      }
+
+      function diChuyenToiDiem() {
+        var x = prompt("Nhập tọa độ x:");
+        var y = prompt("Nhập tọa độ y:");
+        if (w && !isNaN(x) && !isNaN(y)) {
+          w.moveTo(parseInt(x), parseInt(y));
+        }
+      }
+
+      function inAn() {
+        if (w) {
+          w.print();
+        }
+      }
+    </script>
+  </body>
+</html>

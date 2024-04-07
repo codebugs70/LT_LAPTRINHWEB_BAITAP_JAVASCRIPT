@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style>
+    body {
+      display: grid;
+      justify-content: center;
+      align-items: center;
+    }
+    .card {
+      margin: 50px 0;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: lightcyan;
+    }
+    input {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button {
+      border: none;
+      padding: 10px;
+      background-color: #ff6651;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+
+  <body>
+    <div class="card">
+      <h1>Iphone XS MAX 2019</h1>
+      <img
+        src="https://m.media-amazon.com/images/I/61xXeO6ojPL._AC_SL1500_.jpg"
+        alt=""
+        style="width: 200px"
+      />
+
+      <div
+        style="margin: 10px 0; font-size: 20px; color: red; font-weight: 600"
+      >
+        Price: 500
+      </div>
+
+      <div>
+        <label for="soluong">Số lượng</label>
+        <input min="0" value="1" type="number" name="soluong" id="soluong" />
+        <button id="calculateBtn">Tính</button>
+      </div>
+
+      <div
+        style="
+          height: 1px;
+          width: 100%;
+          background-color: black;
+          margin: 20px 0;
+        "
+      ></div>
+
+      <div
+        style="font-size: 20px; font-weight: 600; text-align: center"
+        id="productInfo"
+      >
+        <div>Name: Iphone XS MAX 2019</div>
+        <div id="amount">Amount:</div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("calculateBtn")
+        .addEventListener("click", function () {
+          const quantity = parseInt(document.getElementById("soluong").value);
+          const pricePerItem = 500; // Giá mỗi sản phẩm
+          let totalAmount = quantity * pricePerItem;
+          const amount = document.getElementById("amount");
+          amount.textContent = `Amount: $${totalAmount}`;
+        });
+    </script>
+  </body>
+</html>

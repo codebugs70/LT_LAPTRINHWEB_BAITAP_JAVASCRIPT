@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tìm kiếm trong Danh sách</title>
+  </head>
+
+  <style>
+    /* styles.css */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    #app {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    div {
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: calc(100% - 78px);
+      padding: 8px;
+      margin-right: 8px;
+    }
+
+    button {
+      padding: 8px 12px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+  </style>
+
+  <body>
+    <div id="app">
+      <h1>Tìm kiếm trong Danh sách</h1>
+      <div>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Nhập từ khóa tìm kiếm..."
+        />
+        <button id="clearBtn">Xóa</button>
+      </div>
+      <ul id="itemList">
+        <li>Apple</li>
+        <li>Banana</li>
+        <li>Orange</li>
+        <li>Strawberry</li>
+        <li>Grapes</li>
+        <li>Pineapple</li>
+      </ul>
+    </div>
+
+    <script>
+      // script.js
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const clearBtn = document.getElementById("clearBtn");
+        const itemList = document.getElementById("itemList");
+        const items = itemList.getElementsByTagName("li");
+
+        // Function to handle search input change event
+        searchInput.addEventListener("input", function () {
+          const searchTerm = searchInput.value.toLowerCase();
+
+          for (let i = 0; i < items.length; i++) {
+            const itemText = items[i].textContent.toLowerCase();
+            if (itemText.includes(searchTerm)) {
+              items[i].style.display = "block";
+            } else {
+              items[i].style.display = "none";
+            }
+          }
+        });
+
+        // Function to handle clear button click event
+        clearBtn.addEventListener("click", function () {
+          searchInput.value = "";
+          for (let i = 0; i < items.length; i++) {
+            items[i].style.display = "block";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

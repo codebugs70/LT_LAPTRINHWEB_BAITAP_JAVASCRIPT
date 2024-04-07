@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typewriter Effect</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <style>
+    .container {
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    input,
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      margin: 5px;
+      background-color: #20e3b2;
+    }
+
+    button {
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <h1 id="typewriter-text">Chào mừng đến với Typewriter Effect!</h1>
+      <input type="number" id="speedInput" placeholder="Speed (ms)" />
+      <button id="startBtn">Bắt đầu</button>
+    </div>
+
+    <script>
+      const startBtn = document.getElementById("startBtn");
+      const speedInput = document.getElementById("speedInput");
+      const textElement = document.getElementById("typewriter-text");
+      let text = textElement.innerText;
+      let index = 0;
+      let speed = 100; // Default speed
+
+      speedInput.addEventListener("input", function () {
+        let value = parseInt(speedInput.value);
+        if (isNaN(value) || value < 0) {
+          speedInput.value = "";
+        }
+      });
+
+      startBtn.addEventListener("click", function () {
+        if (speedInput.value) {
+          speed = parseInt(speedInput.value);
+        }
+        textElement.innerText = "";
+        typeWriter();
+      });
+
+      function typeWriter() {
+        if (index < text.length) {
+          textElement.innerHTML += text.charAt(index);
+          index++;
+          setTimeout(typeWriter, speed);
+        }
+      }
+    </script>
+  </body>
+</html>

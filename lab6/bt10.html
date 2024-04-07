@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Cards</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        display: grid;
+        justify-content: center;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .product-card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        overflow: hidden;
+        width: 300px;
+        padding: 20px;
+      }
+
+      .product-image {
+        height: 300px;
+      }
+
+      .product-image img {
+        border-radius: 12px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .product-details {
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .product-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .product-price {
+        color: #4caf50;
+        margin-bottom: 10px;
+      }
+
+      .add-to-cart {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      .add-to-cart:hover {
+        background-color: #45a049;
+      }
+
+      .cart-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      .cart-table th,
+      .cart-table td {
+        border-bottom: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      .cart-table th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="product-card">
+        <div class="product-image">
+          <img src="./images/p1.avif" alt="" />
+        </div>
+        <div class="product-details">
+          <div class="product-name">Adidas Ultra Boost</div>
+          <div class="product-price">$180.00</div>
+          <button
+            class="add-to-cart"
+            onclick="addToCart('Adidas Ultra Boost', 180.00)"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">
+          <img src="./images/p2.avif" alt="" />
+        </div>
+        <div class="product-details">
+          <div class="product-name">Nike Air Max 270</div>
+          <div class="product-price">$150.00</div>
+          <button
+            class="add-to-cart"
+            onclick="addToCart('Nike Air Max 270', 150.00)"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">
+          <img src="./images/p3.avif" alt="" />
+        </div>
+        <div class="product-details">
+          <div class="product-name">New Balance 574</div>
+          <div class="product-price">$80.00</div>
+          <button
+            class="add-to-cart"
+            onclick="addToCart('New Balance 574', 80.00)"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <table id="cartTable" class="cart-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody id="cartItems"></tbody>
+    </table>
+
+    <script>
+      function addToCart(productName, price) {
+        const cartTable = document.getElementById("cartTable");
+        const cartItems = document.getElementById("cartItems");
+
+        const newRow = document.createElement("tr");
+        newRow.innerHTML = `
+        <td>${productName}</td>
+        <td>$${price.toFixed(2)}</td>
+      `;
+        cartItems.appendChild(newRow);
+      }
+    </script>
+  </body>
+</html>

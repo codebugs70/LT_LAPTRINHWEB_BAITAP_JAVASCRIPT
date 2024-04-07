@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chu vi và diện tích hình chữ nhật</title>
+    <style>
+      .container {
+        margin: 50px auto;
+        width: 500px;
+        text-align: center;
+      }
+      input {
+        width: 100px;
+        margin-bottom: 10px;
+      }
+      body {
+        display: grid;
+        place-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Nhập kích thước hình chữ nhật</h2>
+      <input type="number" id="length" placeholder="Chiều dài" /><br />
+      <input type="number" id="width" placeholder="Chiều rộng" /><br />
+      <button onclick="calculate()">Tính toán</button><br /><br />
+      <div id="result"></div>
+    </div>
+
+    <script>
+      function calculate() {
+        const length = parseFloat(document.getElementById("length").value);
+        const width = parseFloat(document.getElementById("width").value);
+
+        const perimeter = 2 * (length + width);
+        const area = length * width;
+
+        const result = document.getElementById("result");
+        result.innerHTML =
+          "Chu vi: " + perimeter + "<br>" + "Diện tích: " + area;
+      }
+    </script>
+  </body>
+</html>

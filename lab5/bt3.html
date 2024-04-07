@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+      }
+      h2 {
+        text-align: center;
+        color: #333;
+      }
+      #ketqua {
+        margin: 20px auto;
+        padding: 10px;
+        width: 300px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      input[type="checkbox"] {
+        margin-bottom: 5px;
+      }
+      button {
+        display: block;
+        margin: 0 auto;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      p {
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Bạn nhớ tới Mẹ khi nào:</h2>
+    <div id="ketqua"></div>
+    <form>
+      <input type="checkbox" name="me" value="Ɖói" />Ɖói<br />
+      <input type="checkbox" name="me" value="No" />No<br />
+      <input type="checkbox" name="me" value="Bệnh" />Bệnh<br />
+      <input type="checkbox" name="me" value="Vui" />Vui<br />
+      <input type="checkbox" name="me" value="Buồn" />Buồn<br />
+      <button id="btn1" type="button" onclick="check()">Chọn</button>
+    </form>
+
+    <script>
+      function check() {
+        var arr = document.getElementsByName("me");
+        var kq = document.getElementById("ketqua");
+
+        var dem = 0;
+        kq.innerHTML = "";
+
+        for (var i = 0; i < arr.length; i++) {
+          if (arr[i].checked) {
+            var v = arr[i].value;
+            var chu = document.createTextNode(v);
+            var tagp = document.createElement("p");
+            tagp.appendChild(chu);
+            kq.appendChild(tagp);
+            dem++; // Tăng biến dem khi mục được chọn
+          }
+        }
+
+        // Hiển thị số lượng mục được chọn sau vòng lặp
+        var demElement = document.createElement("p");
+        demElement.textContent = "Số mục được chọn: " + dem;
+        kq.appendChild(demElement);
+      }
+    </script>
+  </body>
+</html>

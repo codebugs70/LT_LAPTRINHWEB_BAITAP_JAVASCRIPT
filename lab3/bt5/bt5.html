@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* Code bổ sung bài 1 */
+      var so1, so2, pheptinh;
+
+      // Hàm kiểm tra xem một chuỗi có phải là số hay không
+      function isNumeric(str) {
+        if (typeof str != "string") return false; // Kiểm tra xem đối số có phải là chuỗi hay không
+        return !isNaN(str) && !isNaN(parseFloat(str));
+      }
+
+      // Lặp lại việc nhập số 1 cho đến khi người dùng nhập số
+      do {
+        so1 = prompt("Nhập số 1:");
+      } while (!isNumeric(so1));
+
+      // Lặp lại việc nhập số 2 cho đến khi người dùng nhập số
+      do {
+        so2 = prompt("Nhập số 2:");
+      } while (!isNumeric(so2));
+
+      pheptinh = prompt("Nhập phép tính: ");
+
+      switch (pheptinh) {
+        case "+":
+          var kq = parseInt(so1) + parseInt(so2);
+          document.write(`<p>Kết quả là: ${kq}</p>`);
+          break;
+        case "-":
+          var kq = parseInt(so1) - parseInt(so2);
+          document.write(`<p>Kết quả là: ${kq}</p>`);
+          break;
+        case "*":
+          var kq = parseInt(so1) * parseInt(so2);
+          document.write(`<p>Kết quả là: ${kq}</p>`);
+          break;
+        case "/":
+          var kq = parseInt(so1) / parseInt(so2);
+          document.write(`<p>Kết quả là: ${kq}</p>`);
+          break;
+        default:
+          document.write(`<p>Phép tính không hợp lệ</p>`);
+          break;
+      }
+
+      /* Code bổ sung bài 2 */
+    </script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var so1 = prompt("Nhập số 1:");
+      var so2 = prompt("Nhập số 2:");
+      var pheptinh = prompt("Nhập phép tính: ");
+
+      switch (pheptinh) {
+        case "+":
+          var kq = parseInt(so1) + parseInt(so2);
+          document.write(`<p>Kết quả là: ${kq}</p>`);
+          break;
+        case "-":
+          var kq = parseInt(so1) - parseInt(so2);
+          document.write(`<p>Kết quả là: ${kq}</p>`);
+          break;
+        case "*":
+          var kq = parseInt(so1) * parseInt(so2);
+          document.write(`<p>Kết quả là: ${kq}</p>`);
+          break;
+        case "/":
+          var kq = parseInt(so1) / parseInt(so2);
+          document.write(`<p>Kết quả là: ${kq}</p>`);
+          break;
+        default:
+          document.write(`<p>Phép tính không hợp lệ</p>`);
+          break;
+      }
+    </script>
+  </body>
+</html>
